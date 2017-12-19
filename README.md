@@ -1,6 +1,6 @@
 # infinite-list
 
-infinite-list 是可回收 DOM 的无限下拉列表插件, 支持 jQuery 和 Zepto 库。[点击此预览](https://sufangyu.github.io/project/infinite-list/index.html)
+infinite-list 是可回收 DOM 的无限下拉列表插件, 支持 jQuery 和 Zepto 库。[点击此预览](https://sufangyu.github.io/project/infinite-list/)
 
 
 ### 特性

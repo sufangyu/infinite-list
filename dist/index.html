@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta content="无限列表" name="apple-mobile-web-app-title" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="telephone=no" name="format-detection">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <title>无限列表</title>    
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/infinite.css">
+    <script src="./libs/jquery-1.7.2.min.js"></script>
+    <script src="./libs/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>    
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <div class="wrapper clearfix">
+            <h1 class="project-title">Infinite list 无限列表</h1>
+            <div class="project-description">
+                <p>可回收 DOM 的无限下拉列表插件, 支持 jQuery 和 Zepto 库。</p>
+            </div>
+            <div class="project-follow">
+                <div class="button-group">
+                    <a target="_blank" href="https://github.com/sufangyu/infinite-list/archive/master.zip" class="button button-default">下载插件</a>
+                    <a target="_blank" href="https://github.com/sufangyu/infinite-list" class="button button-default">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">
+        <div class="wrapper clearfix">
+            <section class="section-heading">
+                <h2 class="section-title">插件概述</h2>
+            </section>
+
+            <section class="main">
+                <!-- S content-block  -->
+                <div class="content-block">
+                    <div class="subtitle">说明</div>
+
+                    <article class="panel">
+                        <h3 class="panel-hd">特性</h3>
+                        <div class="panel-bd">
+                            <ul>    
+                                <li>利用 DOM 回收, 解决多数据列表导致的卡顿</li>
+                                <li>支持下拉加载下一页数据</li>
+                                <li>可定位到列表置顶</li>
+                                <li>可自定义列表项的 HTMl 结构</li>
+                                <li>同时支持 jQuery 和 Zepto 库</li>
+                              </ul>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <h3 class="panel-hd">兼容性</h3>
+                        <div class="panel-bd">
+                            <ul>                    
+                                <li>Android 4.0+</li>
+                                <li>iOS 8+</li>
+                            </ul>
+                        </div>
+                    </article>
+                    
+                </div>
+                <!-- E content-block  -->
+
+
+                <!-- S content-block  -->
+                <div class="content-block">
+                    <div class="subtitle">使用与示例</div>
+
+                    <article class="panel">
+                        <h3 class="panel-hd">使用说明</h3>
+                        <div class="panel-bd">
+                            <h4>1、引入 CSS 文件</h4>
+<div class="hl-section">
+<pre><code class="html">&ltlink rel="stylesheet" href="../css/infinite.css" /&gt</code></pre>
+</div>
+                            <h4>2、引入 JS 文件</h4>
+<div class="hl-section">
+<pre><code class="javascript">&ltscript src="../lib/zepto.min.js"&gt&lt/script&gt
+&ltscript src="../js/infinite.js"&gt&lt/script&gt</code></pre>
+</div>
+                            <h4>3、HTML 结构</h4>
+<div class="hl-section">
+<pre><code class="javascript">&ltdiv class="infinite-list js-infinite-list"&gt&lt/div&gt</code></pre>
+</div>
+                            <h4>4、实例化</h4>
+<div class="hl-section">
+<pre><code class="javascript">$(document).on('click', '#btn-01', function() {
+    // 模拟数据
+    var data = [];
+    var length = 200;
+    for (var i = 1; i <= length; i++) {
+        var item = {
+            name: 'item ' + i,
+            index: i,
+        };
+        data.push(item);
+    }
+
+    $('.js-infinite-list').infiniteList({
+      listData: data,
+      rowHeight: 58,
+      itemTemplate: function(res) {
+        return '&ltdiv style="height: 57px; line-height: 57px; padding: 0 15px; border-bottom: 1px solid #ddd;"&gt'+ res.name + '&lt/div&gt';
+      },
+    });
+});</code></pre>
+</div>
+                        </div>
+                    </article>
+
+
+                    <article class="panel">
+                        <h3 class="panel-hd">示例</h3>
+                        <div class="panel-bd">
+                            <ul>
+                              <li><a target="_blank" href="./demos/body.html">默认滚动元素</a></li>
+                              <li><a target="_blank" href="./demos/bodypost.html">默认滚动元素 - 图片</a></li>
+                              <li><a target="_blank" href="./demos/element.html">指定滚动元素</a></li>
+                              <li><a target="_blank" href="./demos/elementpost.html">指定滚动元素 - 图片</a></li>
+                              <li><a target="_blank" href="./demos/infinite.html">无限下拉列表</a></li>
+                              <li><a target="_blank" href="./demos/locate.html">指定跳转某个 Item</a></li>
+                            </ul>
+                        </div>
+                    </article>
+
+                </div>
+                <!-- E content-block  -->
+
+
+                <!-- S content-block  -->
+                <div class="content-block">
+                    <div class="subtitle">API</div>
+
+                    <article class="panel">
+                        <h3 class="panel-hd">参数</h3>
+                        <div class="panel-bd">
+                            <div class="parameter-desc">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>参数</th>
+                                            <th>默认值</th>
+                                            <th>说明</th>
+                                        </tr>                           
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>wrapper</td>
+                                            <td>.infinite-list'</td>
+                                            <td>列表容器</td>
+                                        </tr>
+                                        <tr>
+                                            <td>listData</td>
+                                            <td>[]</td>
+                                            <td>列表数据</td>
+                                        </tr>
+                                        <tr>
+                                            <td>offset</td>
+                                            <td>10</td>
+                                            <td>触发加载下一页的相对底部距离</td>
+                                        </tr>
+                                        <tr>
+                                            <td>activeIndex</td>
+                                            <td>0</td>
+                                            <td>定位 Item index</td>
+                                        </tr>
+                                        <tr>
+                                            <td>rowHeight</td>
+                                            <td>58</td>
+                                            <td>Item 的高度</td>
+                                        </tr>
+                                        <tr>
+                                            <td>isInfinite</td>
+                                            <td>false</td>
+                                            <td>是否是无限下拉列表</td>
+                                        </tr>
+                                        <tr>
+                                            <td>itemTemplate</td>
+                                            <td>*</td>
+                                            <td>列表 Item 的 HTML</td>
+                                        </tr>
+                                        <tr>
+                                            <td>loadStatusTemplate</td>
+                                            <td>*</td>
+                                            <td>状态 HTML</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <h3 class="panel-hd">回调函数</h3>
+                        <div class="panel-bd">
+                            <div class="parameter-desc">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>函数</th>
+                                            <th>默认值</th>
+                                            <th>说明</th>
+                                        </tr>                           
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>onInfinite</td>
+                                            <td>function(){}</td>
+                                            <td>加载下一页触发</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <h3 class="panel-hd">方法</h3>
+                        <div class="panel-bd">
+                            <div class="parameter-desc">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>方法</th>
+                                            <th>说明</th>
+                                        </tr>                           
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>obj.pushData()</td>
+                                            <td>
+                                              添加数据
+                                              <br />pushData.close([1, 2, 3]);
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>obj.setLoadStatus(status)</td>
+                                            <td>
+                                                设置列表加载状态<br />
+                                                可传入参数：<br>
+                                                'loaded': 弹窗内容, 可以是HTML <br>
+                                                'loading': 弹窗提示图标<br>
+                                                'loadFail': 弹窗提示文字<br>
+                                                'loadEnd': 自动关闭的延迟时间<br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>obj.locate(index)</td>
+                                            <td>
+                                                列表定位到置顶 Item<br />
+                                                可传入参数：<br>
+                                                index: Item 序号 <br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+                <!-- E content-block  -->
+
+
+
+            </section>
+
+            <aside class="sidebar">
+                <!-- S content-block  -->
+                <div class="content-block">
+                    <div class="subtitle">反馈 BUG</div>
+                    <p><a target="_blank" href="https://github.com/sufangyu/infinite-list/issues">GiHub issues</a></p>
+                </div>
+                <!-- E content-block  -->
+
+                <!-- S content-block  -->
+                <div class="content-block">
+                    <div class="subtitle">依赖</div>
+                    <p>需要使用 jQuery 或者 Zepto 库</p>
+                </div>
+                <!-- E content-block  -->
+
+                <!-- S content-block  -->
+                <div class="content-block">
+                    <div class="subtitle">版本</div>
+                    <ul class="history-version">
+                        <li><span class="version">v1.0.0</span><span class="time">2017-12-23</span></li>
+                    </ul>
+                </div>
+                <!-- E content-block  -->
+
+
+                <!-- S content-block  -->
+                <div class="content-block">
+                    <div class="subtitle">协议</div>
+                    <p>MIT</p>
+                </div>
+                <!-- E content-block  -->
+            </aside>
+        </div>
+    </section>
+</div>
+</body>
+</html>

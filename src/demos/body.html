@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>body scroll - Infinite List</title>
+  <link rel="stylesheet" href="../css/infinite.css" />
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background-color: #f5f5f9;
+    }
+    h4 {
+      margin: 0;
+      padding: 15px 0;
+    }
+    .infinite-list {
+      height: 100%;
+    }
+  </style>
+  <script src="../libs/zepto.js"></script>
+  <script src="../js/infinitelist.js"></script>
+  <script>
+    $(document).ready(function() {
+      var data = [];
+      var length = 200;
+
+      for (var i = 1; i <= length; i++) {
+          var item = {
+              name: 'item ' + i,
+              index: i,
+          };
+          data.push(item);
+      }
+
+      $('body').infiniteList({
+        listData: data,
+        itemTemplate: function(res) {
+          return '<div style="height: 57px; line-height: 57px; padding: 0 15px; border-bottom: 1px solid #ddd;">'+ res.name + '</div>';
+        },
+      });
+    });
+  </script>
+</head>
+<body>
+  <h4>Scroll element - body</h4>
+  <div class="infinite-list"></div>
+</body>
+</html>

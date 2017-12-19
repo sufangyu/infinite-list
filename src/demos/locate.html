@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>element scroll - Infinite List</title>
+  <link rel="stylesheet" href="../css/infinite.css" />
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background-color: #f5f5f9;
+    }
+    h4 {
+      margin: 0;
+      padding: 15px 0;
+    }
+    .infinite-list {
+      background-color: #fff;
+      height: 400px;
+      overflow-y: auto;
+    }
+    
+    .buttons__group {
+      text-align: center;
+      margin-top: 35px;
+      font-size: 0;
+    }
+    .button {
+      cursor: pointer;
+      border: 0;
+      display: inline-block;
+      height: 38px;
+      line-height: 38px;
+      padding: 0 20px;
+      color: #222;
+      background-color: #f2f2f2;
+      border-radius: 3px;
+
+      margin: 0 5px; 
+    }
+    .button__primary {
+      color: #fff;
+      background-color: #007fff;
+    }
+  </style>
+  <script src="../libs/zepto.js"></script>
+  <script src="../js/infinitelist.js"></script>
+  <script>
+    $(document).ready(function() {
+      var data = [];
+      var length = 200;
+
+      for (var i = 1; i <= length; i++) {
+          var item = {
+              name: 'item ' + i,
+              index: i,
+          };
+          data.push(item);
+      }
+
+
+      var elementInfinite = $('.js-infinite-list').infiniteList({
+        isInfinite: true,
+        listData: data,
+        itemTemplate: function(res) {
+          return '<div style="height: 57px; line-height: 57px; padding: 0 15px; border-bottom: 1px solid #ddd;">'+ res.name + '</div>';
+        },
+      });
+
+
+      // 定位
+      $('.button').on('click', function() {
+        var index = $(this).attr('data-index') - 1;
+        elementInfinite && elementInfinite.locate(index);
+      });
+      
+
+
+      /**
+       * 模拟返回的数据
+       *
+       * @params {} page
+       * @params {} cb
+       */
+      function getListRequest(page, cb) {
+        var data = [];
+        var length = 10;
+
+        for (var i = 1; i <= length; i++) {
+          var index = page * 10 + i;
+          var item = {
+              name: 'item ' + index,
+              index: index,
+          };
+          data.push(item);
+        }
+
+        var response = {
+          totalPage: 5,
+          list: data,
+        };
+
+
+        setTimeout(function () {
+          cb && cb(response);
+        }, 2500);
+      }
+
+    });
+  </script>
+</head>
+<body>
+  <h4>Element scroll infinite list</h4>
+  <div class="infinite-list js-infinite-list"></div>
+
+  <div class="buttons__group">
+    <button class="button button__primary" data-index="5">定位到第5条</button>
+    <button class="button button__primary" data-index="42">定位到第42条</button>
+  </div>
+</body>
+</html>

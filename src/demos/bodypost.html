@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>body scroll - Infinite List</title>
+  <link rel="stylesheet" href="../css/infinite.css" />
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background-color: #f5f5f9;
+    }
+    h4 {
+      margin: 0;
+      padding: 15px 0;
+    }
+    .infinite-list {
+      height: 100%;
+    }
+
+    .list-item {
+      margin-bottom: 10px;
+      padding: 0px 15px; 
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+    .list-item__header {
+      line-height: 50px;
+      color: #999; 
+      font-size: 18px; 
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .list-item__body {
+      display: flex; 
+      padding: 15px 0px;
+    }
+    .list-item__image {
+      height: 64px;
+      margin-right: 15px;
+    }
+    .list-item__content {
+      line-height: 1;
+    }
+    .list-item__title {
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    .list-item__meta {
+      margin-top: 15px;
+    }
+    .list-item__meta span {
+      font-size: 30px;
+      color: rgb(255, 110, 39);
+      margin-right: 10px;
+    }
+
+  </style>
+  <script src="../libs/zepto.js"></script>
+  <script src="../js/infinitelist.js"></script>
+  <script>
+    $(document).ready(function() {
+      var data = [];
+      var length = 100;
+      var images = [
+        '../images/01.png',
+        '../images/02.png',
+        '../images/03.png',
+      ];
+      var titles = [
+        'Eat the week',
+        'McDonald\'s invites you',
+        'Meet hotel',
+      ];
+
+      for (var i = 1; i <= length; i++) {
+        var item = {
+          index: i,
+          title: titles[(i%3)],
+          content: '不是所有的兼职汪都需要风吹日晒 - ' + i,
+          price: 35,
+          info: '¥ S0, R1',
+          image: images[(i%3)],
+        };
+        data.push(item);
+      }
+
+      $('body').infiniteList({
+        listData: data,
+        rowHeight: 157,
+        itemTemplate: function(res) {
+          return (
+            '<div class="list-item">' +
+              '<div class="list-item__header">'+ res.title +'</div>' +
+              '<div class="list-item__body">' +
+                '<img class="list-item__image" src="'+ res.image +'" alt="" />' +
+                '<div class="list-item__content">' +
+                  '<div class="list-item__title">'+ res.content +'</div>' +
+                  '<div class="list-item__meta"><span>'+ res.price +'</span>'+ res.info +'</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          );
+        },
+      });
+    });
+  </script>
+</head>
+<body>
+  <h4>Body scroll infinite list</h4>
+  <div class="infinite-list"></div>
+</body>
+</html>
